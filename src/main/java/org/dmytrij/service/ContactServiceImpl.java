@@ -17,13 +17,13 @@ public class ContactServiceImpl implements ContactService {
     @Autowired
     private ContactDao contactDao;
     @Value("${maxContactsCount}")
-    private Integer macContactsCount;
+    private Integer maxContactsCount;
 
 
     @Override
     public void addContact(Contact contact) {
 
-        if(getAllContacts().size() >= macContactsCount) {
+        if(getAllContacts().size() >= maxContactsCount) {
             throw new RuntimeException("exceeds the maximum size of the list");
         }
         contactDao.addContact(contact);
@@ -39,5 +39,10 @@ public class ContactServiceImpl implements ContactService {
     public List<Contact> getAllContacts() {
 
         return contactDao.getAllContacts();
+    }
+
+    @Override
+    public void clearAll() {
+        contactDao.clearAll();
     }
 }

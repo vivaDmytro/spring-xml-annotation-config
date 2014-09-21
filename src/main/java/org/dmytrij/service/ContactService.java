@@ -12,4 +12,5 @@ public interface ContactService {
     void addContact(Contact contact);
     void deleteContact(Contact contact);
     List<Contact> getAllContacts();
+    void clearAll();
 }

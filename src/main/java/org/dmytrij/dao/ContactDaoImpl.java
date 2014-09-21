@@ -1,7 +1,9 @@
 package org.dmytrij.dao;
 
 import org.dmytrij.entity.Contact;
+import org.springframework.beans.factory.annotation.Value;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**
@@ -10,6 +12,8 @@ import java.util.List;
 public class ContactDaoImpl implements ContactDao {
 
     private List<Contact> contacts;
+    @Value("${maxContactsCount}")
+    private Integer maxContactsCount;
 
     public void setContacts(List<Contact> contacts) {
         this.contacts = contacts;
@@ -30,5 +34,18 @@ public class ContactDaoImpl implements ContactDao {
     @Override
     public List<Contact> getAllContacts() {
         return contacts;
+    }
+
+    @Override
+    public void clearAll() {
+        contacts.clear();
+    }
+    
+    @PostConstruct
+    private void postConstruct(){
+        if(contacts.size() >= maxContactsCount) {
+            contacts.remove(0);
+            contacts.remove(1);
+        }
     }
 }
