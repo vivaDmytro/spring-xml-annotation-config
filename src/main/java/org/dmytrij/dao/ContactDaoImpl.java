@@ -40,7 +40,7 @@ public class ContactDaoImpl implements ContactDao {
     public void clearAll() {
         contacts.clear();
     }
-    
+
     @PostConstruct
     private void postConstruct(){
         if(contacts.size() >= maxContactsCount) {
